@@ -60,7 +60,7 @@ a:hover{
 		<%}%>
 	</table>
 	<br><br><center>
-	<a href="StudentView.html">Back to Student Modification</a>
+	<a href="Student.html">Back to Student Modification</a>
 	</center>
 </body>
 </html>
