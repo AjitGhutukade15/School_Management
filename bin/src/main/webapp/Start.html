@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  text-align: center;
+}
+li {
+  display: inline-block;
+  border-right: 3px solid #bbb;
+}
+li:last-child {
+  border-right: none;
+}
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 34px 36px;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+  transition: all 0.2s ease-in-out;
+}
+li a:hover {
+  background-color: #04AA6D;
+  color: white;
+  transform: scale(1.1);
+}
+.active {
+  background-color: #04AA6D;
+  color: white;
+}
+</style>
+</head>
+<body>
+<center>
+<ul>
+  <li><a href="Login.html" class="active">Login</a></li>
+  <li><a href="InsertDetails.html">Insert details</a></li>
+</ul>
+</center>
+</body>
+</html>
