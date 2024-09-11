@@ -1,41 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>View Teacher</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 20px;
-        text-align: center;
-    }
+    <meta charset="UTF-8">
+    <title>View Teacher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
 
-    a, input[type="submit"] {
-        text-decoration: none;
-        font-size: 18px;
-        color: #007BFF;
-        padding: 10px 15px;
-        border: 2px solid #007BFF;
-        border-radius: 5px;
-        margin: 10px;
-        display: inline-block;
-        background-color: white;
-    }
+        .container {
+            display: inline-block;
+            text-align: center;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
 
-    a:hover, input[type="submit"]:hover {
-        background-color: #007BFF;
-        color: white;
-    }
-</style>
+        a, input[type="submit"] {
+            text-decoration: none;
+            font-size: 18px;
+            color: #04AA6D; /* Main color */
+            padding: 10px 15px;
+            border: 2px solid #04AA6D;
+            border-radius: 5px;
+            margin: 10px;
+            display: inline-block;
+            background-color: white;
+        }
+
+        a:hover, input[type="submit"]:hover {
+            background-color: #04AA6D; /* Hover effect: background changes */
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <a href="TeacherViewOneStart.html">View One Teacher</a><br><br>
-    <form action="ViewAllTeacher" method="post">
-        <input type="submit" value="View All Teacher Data">
-    </form>
-    <br><br>
-    <a href="Teacher.html">Back to Teacher Modification</a>
+    <div class="container">
+        <a href="TeacherViewOneStart.html">View One Teacher</a><br><br>
+        <form action="ViewAllTeacher" method="post">
+            <input type="submit" value="View All Teacher Data">
+        </form>
+        <br><br>
+        <a href="Teacher.html">Back to Teacher Modification</a>
+    </div>
 </body>
 </html>

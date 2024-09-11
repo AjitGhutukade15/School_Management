@@ -14,57 +14,54 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import project.Principle;
 import project.Student;
 
 @WebServlet("/AddStudent")
 public class StudentInsert extends HttpServlet {
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String id = req.getParameter("id");
-		String name = req.getParameter("name");
-		String email = req.getParameter("email");
-		String number = req.getParameter("number");
-		String fees = req.getParameter("fees");
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
+        String name = req.getParameter("name");
+        String email = req.getParameter("email");
+        String number = req.getParameter("number");
+        String fees = req.getParameter("fees");
 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("SchoolProject");
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction et = em.getTransaction();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SchoolProject");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
 
-		int id1 = Integer.parseInt(id);
-		Student PF = em.find(Student.class, id1);
-		double number1 = Double.parseDouble(number);
-		double fees1 = Double.parseDouble(fees);
-		System.out.println(PF);
+        int id1 = Integer.parseInt(id);
+        Student student = em.find(Student.class, id1);
+        double number1 = Double.parseDouble(number);
+        double fees1 = Double.parseDouble(fees);
 
-		if (PF == null) {
-			Student P = new Student();
-			P.setId(id1);
-			P.setName(name);
-			P.setSemail(email);
-			P.setSMoNo(number1);
-			P.setFees(fees1);
+        resp.setContentType("text/html");
+        PrintWriter pw = resp.getWriter();
 
-			et.begin();
-			em.persist(P);
-			et.commit();
-			PrintWriter pw = resp.getWriter();
-			pw.write("Student Added success");
-			RequestDispatcher rd = req.getRequestDispatcher("Student.html");
+        if (student == null) {
+            Student newStudent = new Student();
+            newStudent.setId(id1);
+            newStudent.setName(name);
+            newStudent.setSemail(email);
+            newStudent.setSMoNo(number1);
+            newStudent.setFees(fees1);
 
-			rd.include(req, resp);
-			resp.setContentType("text/html");
+            et.begin();
+            em.persist(newStudent);
+            et.commit();
 
-			System.out.println("Data Store");
-		} else {
-			System.out.println("Student data already present");
-			PrintWriter pw = resp.getWriter();
-			pw.write("Student data already present");
-			RequestDispatcher rd = req.getRequestDispatcher("Student.html");
+            pw.println("<html><body style='font-family: Arial, sans-serif; text-align: center;'>");
+            pw.println("<h2 style='color: green;'>Student Added Successfully!</h2>");
+            pw.println("<a href='Student.html' style='font-size: 18px; padding: 10px 20px; background-color: #04AA6D; color: white; text-decoration: none; border-radius: 5px;'>Back to Form</a>");
+            pw.println("</body></html>");
+        } else {
+            pw.println("<html><body style='font-family: Arial, sans-serif; text-align: center;'>");
+            pw.println("<h2 style='color: red;'>Student Data Already Present!</h2>");
+            pw.println("<a href='Student.html' style='font-size: 18px; padding: 10px 20px; background-color: #04AA6D; color: white; text-decoration: none; border-radius: 5px;'>Back to Form</a>");
+            pw.println("</body></html>");
+        }
 
-			rd.include(req, resp);
-			resp.setContentType("text/html");
-		}
-
-	}
+        em.close();
+        emf.close();
+    }
 }

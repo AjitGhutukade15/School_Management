@@ -3,8 +3,7 @@
 <%@page import="javax.persistence.EntityManager"%>
 <%@page import="javax.persistence.Persistence"%>
 <%@page import="javax.persistence.EntityManagerFactory"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <!DOCTYPE html>
 <html>
@@ -26,16 +25,67 @@ pageEncoding="ISO-8859-1"%>
     }
 
     .back-link a {
-        background-color: #007BFF;
+        background-color: #04AA6D;
         color: white;
         padding: 10px 20px;
-        border-radius: 4px;
+        border-radius: 10px;
         text-decoration: none;
         font-size: 18px;
     }
 
     .back-link a:hover {
-        background-color: #0056b3;
+        background-color: white;
+        color: #04AA6D;
+    }
+
+    .form-container {
+        margin-top: 20px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        display: inline-block;
+        text-align: left;
+    }
+
+    .form-container label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 16px;
+    }
+
+    .form-container input {
+        padding: 10px;
+        margin-bottom: 15px;
+        font-size: 16px;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .button-container input[type="submit"], 
+    .button-container button {
+        padding: 10px 20px;
+        font-size: 18px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        background-color: #04AA6D;
+        color: white;
+        min-width: 150px; /* Ensures buttons have the same minimum width */
+    }
+
+    .button-container input[type="submit"]:hover, 
+    .button-container button:hover {
+        background-color: white;
+        color: #04AA6D;
+        border: 1px solid #04AA6D;
     }
 </style>
 </head>
@@ -54,8 +104,30 @@ pageEncoding="ISO-8859-1"%>
             throw new Exception("Student ID not found");
         }
     %>
-    <!-- This should not be reached if there is an error -->
-    <p>Student details found successfully.</p>
+    <h2>Update Student Details</h2>
+    <div class="form-container">
+        <form action="UpdateStudentServlet" method="post">
+            <input type="hidden" name="id" value="<%= t.getId() %>">
+
+            <label for="name">Name:</label>
+            <input type="text" name="name" value="<%= t.getName() %>" required>
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" value="<%= t.getSemail() %>" required>
+
+            <label for="number">Phone Number:</label>
+            <input type="text" name="number" value="<%= t.getSMoNo() %>" required>
+
+            <label for="fees">Fees:</label>
+            <input type="text" name="fees" value="<%= t.getFees() %>" required>
+
+            <div class="button-container">
+                <input type="submit" value="Update Student">
+                <button type="button" onclick="window.history.back();">Back</button>
+            </div>
+        </form>
+    </div>
+    
     <% } catch (Exception e) { %>
         <p class="error-message">Error: <%= e.getMessage() %></p>
         <div class="back-link">

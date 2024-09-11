@@ -14,56 +14,78 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import project.Principle;
 import project.Teacher;
 
 @WebServlet("/AddTeacher")
 public class TeacherInsert extends HttpServlet {
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String id = req.getParameter("id");
-		String name = req.getParameter("name");
-		String email = req.getParameter("email");
-		String number = req.getParameter("number");
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Retrieve form data
+        String id = req.getParameter("id");
+        String name = req.getParameter("name");
+        String email = req.getParameter("email");
+        String number = req.getParameter("number");
 
+        // Set up EntityManager
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SchoolProject");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("SchoolProject");
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction et = em.getTransaction();
+        int id1 = Integer.parseInt(id);
+        double number1 = Double.parseDouble(number);
 
-		int id1 = Integer.parseInt(id);
-		Teacher PF = em.find(Teacher.class, id1);
-		
-		double number1 = Double.parseDouble(number);
-		
+        try {
+            // Check if the teacher already exists
+            Teacher existingTeacher = em.find(Teacher.class, id1);
 
-		if (PF == null) {
-			Teacher P = new Teacher();
-			P.setId(id1);
-			P.setName(name);
-			P.setEmail(email);
-			P.setNumber(number1);
+            if (existingTeacher == null) {
+                Teacher newTeacher = new Teacher();
+                newTeacher.setId(id1);
+                newTeacher.setName(name);
+                newTeacher.setEmail(email);
+                newTeacher.setNumber(number1);
 
-			et.begin();
-			em.persist(P);
-			et.commit();
-			PrintWriter pw = resp.getWriter();
-			pw.write("Teacher Added success");
-			RequestDispatcher rd = req.getRequestDispatcher("Teacher.html");
+                et.begin();
+                em.persist(newTeacher);
+                et.commit();
 
-			rd.include(req, resp);
-			resp.setContentType("text/html");
-
-			System.out.println("Data Store");
-		} else {
-			System.out.println("Teacher data already present");
-			PrintWriter pw = resp.getWriter();
-			pw.write("Teacher data already present");
-			RequestDispatcher rd = req.getRequestDispatcher("Teacher.html");
-
-			rd.include(req, resp);
-			resp.setContentType("text/html");
-		}
-
-	}
+                // Success response
+                resp.setContentType("text/html");
+                PrintWriter pw = resp.getWriter();
+                pw.println("<html><head><title>Teacher Addition Success</title>");
+                pw.println("<style>body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }");
+                pw.println("h2 { color: green; } a { color: blue; text-decoration: none; } a:hover { color: darkblue; }</style>");
+                pw.println("</head><body>");
+                pw.println("<h2>Teacher Added Successfully!</h2>");
+                pw.println("<a href='Teacher.html'>Back to Teacher Modification</a>");
+                pw.println("</body></html>");
+            } else {
+                // Teacher already exists response
+                resp.setContentType("text/html");
+                PrintWriter pw = resp.getWriter();
+                pw.println("<html><head><title>Teacher Addition Failed</title>");
+                pw.println("<style>body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }");
+                pw.println("h2 { color: red; } a { color: blue; text-decoration: none; } a:hover { color: darkblue; }</style>");
+                pw.println("</head><body>");
+                pw.println("<h2>Teacher data already present!</h2>");
+                pw.println("<a href='Teacher.html'>Back to Teacher Modification</a>");
+                pw.println("</body></html>");
+            }
+        } catch (NumberFormatException e) {
+            // Handle invalid number format
+            resp.setContentType("text/html");
+            PrintWriter pw = resp.getWriter();
+            pw.println("<html><head><title>Invalid Input</title>");
+            pw.println("<style>body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }");
+            pw.println("h2 { color: red; } a { color: blue; text-decoration: none; } a:hover { color: darkblue; }</style>");
+            pw.println("</head><body>");
+            pw.println("<h2>Invalid input. Please check your data and try again.</h2>");
+            pw.println("<a href='Teacher.html'>Back to Teacher Modification</a>");
+            pw.println("</body></html>");
+        } finally {
+            // Close EntityManager
+            em.close();
+            emf.close();
+        }
+    }
 }

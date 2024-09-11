@@ -2,48 +2,65 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>View student</title>
+<title>View Student</title>
 <style>
-a {
-  text-decoration: none;
-  font-size: 20px;
-  color: blue;
-  padding: 10px 20px;
-  border: 1px solid blue;
-  border-radius: 5px;
-  margin: 10px;
-  display: inline-block;
-}
-a:hover {
-background-color: blue;
-color: white;
-}
-input[type="submit"], a {
-padding: 10px 20px;
-background-color: rgb(255, 255, 255);
-color: rgb(0, 0, 255);
-border: 1px solid blue;
-border-radius: 5px;
-margin: 10px;
-cursor: pointer;
-display: inline-block;
-}
-input[type="submit"]:hover, a:hover {
-background-color: blue;
-color: white;
-}
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f7f7;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .container {
+        display: inline-block;
+        text-align: left;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    a, input[type="submit"] {
+        text-decoration: none;
+        font-size: 20px;
+        padding: 10px 20px;
+        border: 1px solid #04AA6D;
+        border-radius: 10px;
+        margin: 10px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    a {
+        color: #04AA6D;
+        background-color: white;
+    }
+
+    a:hover, input[type="submit"]:hover {
+        background-color: #04AA6D;
+        color: white;
+    }
+
+    input[type="submit"] {
+        background-color: white;
+        color: #04AA6D;
+    }
+
+    .button-container {
+        text-align: center;
+    }
 </style>
 </head>
 <body>
-<center>
-<a href="StudentViewOneStart.html">View one student</a><br><br>
-<form action="ViewAllStudents" method="post">
-<input type="submit" value="View all student data">
-</form>
-<br><br>
-<a href="Student.html">Back to Student Modification</a><br><br>
-</center>
+    <div class="container">
+        <div class="button-container">
+            <a href="StudentViewOneStart.html">View One Student</a><br><br>
+            <form action="ViewAllStudents" method="post">
+                <input type="submit" value="View All Student Data">
+            </form>
+            <br><br>
+            <a href="Student.html">Back to Student Modification</a>
+        </div>
+    </div>
 </body>
 </html>
-
-
