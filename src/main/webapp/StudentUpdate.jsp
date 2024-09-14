@@ -69,8 +69,8 @@
         gap: 10px;
     }
 
-    .button-container input[type="submit"], 
-    .button-container button {
+    /* Styling for Update button */
+    .button-container .update-button {
         padding: 10px 20px;
         font-size: 18px;
         border-radius: 10px;
@@ -78,12 +78,29 @@
         cursor: pointer;
         background-color: #04AA6D;
         color: white;
-        min-width: 150px; /* Ensures buttons have the same minimum width */
+        min-width: 150px;
     }
 
-    .button-container input[type="submit"]:hover, 
-    .button-container button:hover {
+    .button-container .update-button:hover {
         background-color: white;
+        color: #04AA6D;
+        border: 1px solid #04AA6D;
+    }
+
+    /* Styling for Back button */
+    .button-container .back-button {
+        padding: 10px 20px;
+        font-size: 18px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        background-color: #04AA6D; /*green color for the back button */
+        color: white;
+        min-width: 150px;
+    }
+
+    .button-container .back-button:hover {
+         background-color: white;
         color: #04AA6D;
         border: 1px solid #04AA6D;
     }
@@ -121,11 +138,12 @@
             <label for="fees">Fees:</label>
             <input type="text" name="fees" value="<%= t.getFees() %>" required>
 
-            <div class="button-container">
-                <input type="submit" value="Update Student">
-                <button type="button" onclick="window.history.back();">Back</button>
-            </div>
-        </form>
+			<div class="button-container">
+				<button type="submit" class="update-button">Update Student</button>
+				<button type="submit" class="back-button" formaction="StudentUpdate.html">Back</button>
+			</div>
+
+		</form>
     </div>
     
     <% } catch (Exception e) { %>
